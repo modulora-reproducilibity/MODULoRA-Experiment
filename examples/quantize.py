@@ -1,3 +1,7 @@
+
+import sys
+sys.path.append("../")
+
 from llmtune.llms.autollm import AutoLLMForCausalLM
 from llmtune.engine.quant.config import QuantConfig
 from llmtune.engine.quant.gptq.executor import GPTQAlgorithm

@@ -1,3 +1,6 @@
+import sys
+sys.path.append("../")
+
 import torch
 from transformers import AutoTokenizer
 from llmtune.llms.autollm import AutoLLMForCausalLM

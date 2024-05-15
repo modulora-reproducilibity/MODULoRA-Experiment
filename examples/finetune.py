@@ -1,4 +1,8 @@
 import os
+import sys
+print(os.getcwd())
+sys.path.append("../")
+
 import torch
 import transformers
 from transformers import AutoTokenizer

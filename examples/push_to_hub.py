@@ -1,3 +1,7 @@
+import sys
+sys.path.append("../")
+
+
 from llmtune.llms.autollm import AutoLLMForCausalLM
 
 # load model
