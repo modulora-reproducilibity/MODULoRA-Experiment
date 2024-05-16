@@ -8,7 +8,7 @@ from llmtune.engine.quant.gptq.executor import GPTQAlgorithm
 from llmtune.data.calibration import get_calibration_loaders
 
 # load model
-model_name = 'decapoda-research/llama-7b-hf'
+model_name = 'huggyllama/llama-7b'
 llm = AutoLLMForCausalLM.from_pretrained(model_name)
 llm.eval()
 
@@ -22,7 +22,7 @@ config = QuantConfig(
 	groupsize=64,
 	act_order=True,
 	nearest=False,
-	save='./llama-7b-quantized'
+	save='./llama-7b-4bit-quantized'
 )
 
 # load gptq calibration data
