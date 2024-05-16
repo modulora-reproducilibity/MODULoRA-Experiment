@@ -225,9 +225,7 @@ if not ddp and torch.cuda.device_count() > 1:
 
 model = load_adapter(model, lora_config=lora_config)
 
-trainer_class = Trainer ##if not omit_base_model_save else TrainerNoBaseSave
-print("Trainer class:", trainer_class)
-trainer = trainer_class(
+trainer = Trainer(
     model=model,
     args=training_args,
     train_dataset=train_dataset,

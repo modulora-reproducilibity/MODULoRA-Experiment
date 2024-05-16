@@ -220,7 +220,7 @@ def preprocess_logits_for_metrics(logits, labels):
     return pred_ids, labels
 
 # Start trainer
-trainer = transformers.Trainer(
+trainer = Trainer(
     model=model,
     args=training_arguments,
     train_dataset=train_dataset,
