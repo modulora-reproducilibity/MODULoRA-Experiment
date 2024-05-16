@@ -20,32 +20,19 @@ print('Weight Path:', args.weight_path)
 print('Adapter Path: ', args.adapter)
 print('Seed: ', args.seed)
 
-import random
-import json
 import os
-
-#for eval
 import pickle
 
-# import wandb
 import torch
 import numpy as np
-# import bitsandbytes as bnb
 from tqdm import tqdm
 import transformers
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, AutoModelForCausalLM, DataCollatorForTokenClassification, DataCollatorForSeq2Seq
-from transformers import Trainer, TrainingArguments, logging, TrainerState, TrainerControl, BitsAndBytesConfig
-from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR
-from peft import get_peft_model, LoraConfig, prepare_model_for_int8_training
+from transformers import AutoTokenizer
 from datasets import load_dataset
+import evaluate
 
 from utils import set_random_seed, fix_model, fix_tokenizer
-from data import InstructDataset
 
-import evaluate
-import numpy as np
-from datasets import load_from_disk
-from tqdm import tqdm
 
 from llmtune.executor import load_llm, load_adapter
 from llmtune.engine.lora.peft import quant_peft
@@ -57,7 +44,7 @@ val_sample_rate = 1.0
 local_rank = 0
 
 set_random_seed(seed)
-logging.set_verbosity_info()
+transformers.logging.set_verbosity_info()
 
 
 device_map = "auto"
@@ -71,7 +58,6 @@ tokenizer = fix_tokenizer(tokenizer)
 dataset = load_dataset('samsum')
 train_records = dataset['train']
 val_records = dataset['test']
-#random.shuffle(train_records)
 print("train_record[0]: ",train_records[0])
 
 ## Config for llama 7-b

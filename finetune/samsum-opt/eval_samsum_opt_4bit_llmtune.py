@@ -22,25 +22,19 @@ import os
 # import wandb
 import torch
 import numpy as np
-# import bitsandbytes as bnb
 from tqdm import tqdm
 import transformers
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, AutoModelForCausalLM, DataCollatorForTokenClassification, DataCollatorForSeq2Seq
-from transformers import Trainer, TrainingArguments, logging, TrainerState, TrainerControl, BitsAndBytesConfig
-from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR
+from transformers import AutoTokenizer
+from transformers import Trainer, TrainingArguments
 from peft import get_peft_model, LoraConfig, prepare_model_for_int8_training
-from datasets import load_dataset
-
-from utils import *
-from data import *
-
+from datasets import load_dataset, load_from_disk
 import evaluate
-import numpy as np
-from datasets import load_from_disk
-from tqdm import tqdm
+
+from utils import set_random_seed, fix_model, fix_tokenizer_opt
+from data import InstructDataset
 
 from llmtune.llms.autollm import AutoLLMForCausalLM
-from llmtune.engine.lora.config import FinetuneConfig
+# from llmtune.engine.lora.config import FinetuneConfig
 from llmtune.engine.lora.peft import quant_peft
 from llmtune.utils import to_half_precision
 
@@ -56,7 +50,6 @@ tokenizer_name = "facebook/opt-6.7b"
 DEV = 'cuda'
 
 set_random_seed(42)
-logging.set_verbosity_info()
 
 # with open(config_file, "r") as r:
 #     config = json.load(r)

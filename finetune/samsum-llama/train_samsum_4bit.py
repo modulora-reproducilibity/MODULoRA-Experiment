@@ -19,20 +19,15 @@ print('Seed: ', args.seed)
 print('mbatch_size: ', args.mbatch_size)
 
 
-import random
-import json
 import os
 
-# import wandb
 import torch
 import numpy as np
-import bitsandbytes as bnb
 from tqdm import tqdm
 import transformers
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, AutoModelForCausalLM, DataCollatorForTokenClassification, DataCollatorForSeq2Seq
-from transformers import Trainer, TrainingArguments, logging, TrainerState, TrainerControl, BitsAndBytesConfig
-from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR
-from peft import get_peft_model, LoraConfig, prepare_model_for_int8_training
+from transformers import AutoTokenizer, DataCollatorForTokenClassification, DataCollatorForSeq2Seq
+from transformers import Trainer, TrainingArguments
+from peft import get_peft_model, LoraConfig
 from datasets import load_dataset
 
 
@@ -43,7 +38,6 @@ from llmtune.executor import load_llm, load_adapter
 from llmtune.engine.lora.peft import quant_peft
 
 
-# os.environ["WANDB_LOG_MODEL"] = "checkpoint"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 
@@ -57,7 +51,8 @@ local_rank = 0
 output_dir = args.adapter
 
 set_random_seed(seed)
-logging.set_verbosity_info()
+transformers.logging.set_verbosity_info()
+
 
 
 device_map = "auto"

@@ -20,9 +20,8 @@ print('mbatch_size: ', args.mbatch_size)
 import os
 import torch
 import transformers
-from transformers import AutoTokenizer
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, AutoModelForCausalLM, DataCollatorForTokenClassification, DataCollatorForSeq2Seq
-from transformers import Trainer, TrainingArguments, logging, TrainerState, TrainerControl, BitsAndBytesConfig
+from transformers import AutoTokenizer, DataCollatorForTokenClassification, DataCollatorForSeq2Seq
+from transformers import Trainer, TrainingArguments
 from llmtune.llms.autollm import AutoLLMForCausalLM
 from llmtune.engine.lora.config import FinetuneConfig
 from llmtune.engine.lora.peft import quant_peft

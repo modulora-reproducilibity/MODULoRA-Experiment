@@ -16,29 +16,20 @@ print('Adapter Name: ', args.adapter)
 print('Output file:', args.file_name)
 print('Seed: ', args.seed)
 
-import random
-import json
 import os
 
-# import wandb
 import torch
 import numpy as np
-# import bitsandbytes as bnb
 from tqdm import tqdm
 import transformers
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, AutoModelForCausalLM, DataCollatorForTokenClassification, DataCollatorForSeq2Seq
-from transformers import Trainer, TrainingArguments, logging, TrainerState, TrainerControl, BitsAndBytesConfig
-from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR
-from peft import get_peft_model, LoraConfig, prepare_model_for_int8_training, PeftModel
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, AutoModelForCausalLM, BitsAndBytesConfig
+from peft import PeftModel
 from datasets import load_dataset
+import evaluate
 
 from utils import set_random_seed, fix_model, fix_tokenizer
 from data import InstructDataset
 
-import evaluate
-import numpy as np
-from datasets import load_from_disk
-from tqdm import tqdm
 
 
 output_dir = args.adapter
@@ -49,7 +40,7 @@ val_sample_rate = 1.0
 local_rank = 0
 
 set_random_seed(seed)
-logging.set_verbosity_info()
+transformers.logging.set_verbosity_info()
 
 
 os.environ["WANDB_DISABLED"] = "true"
