@@ -121,9 +121,6 @@ lora_config = LoraConfig(
 )
 
 
-training_args = trainer_config
-
-
 model_name = "huggyllama/llama-13b"
 
 tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast=False)
@@ -222,7 +219,7 @@ model = load_adapter(model, lora_config=lora_config)
 
 trainer = Trainer(
     model=model,
-    args=training_args,
+    args=trainer_config,
     train_dataset=train_dataset,
     eval_dataset=val_dataset,
     data_collator=data_collator,
