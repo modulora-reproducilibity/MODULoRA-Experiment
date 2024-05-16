@@ -59,8 +59,6 @@ output_dir = args.adapter
 set_random_seed(seed)
 logging.set_verbosity_info()
 
-# with open(config_file, "r") as r:
-#     config = json.load(r)
 
 device_map = "auto"
 world_size = int(os.environ.get("WORLD_SIZE", 1))
@@ -72,8 +70,6 @@ ddp = world_size != 1
 
 
 ### Training Configuration
-#trainer_config = config["trainer"]
-
 MICRO_BATCH_SIZE = args.mbatch_size  # this could actually be 5 but i like powers of 2
 BATCH_SIZE = 128
 GRADIENT_ACCUMULATION_STEPS = BATCH_SIZE // MICRO_BATCH_SIZE
@@ -125,7 +121,6 @@ trainer_config = transformers.TrainingArguments(
 
 target_modules = None
 target_modules = ['q_proj', 'v_proj'] # edit with your desired target modules
-#lora_config = config.get("lora")
 lora_config = LoraConfig(
     r=8, lora_alpha=32, target_modules=target_modules, lora_dropout=0.1, bias="none", task_type="CAUSAL_LM"
 )
@@ -227,10 +222,8 @@ if not ddp and torch.cuda.device_count() > 1:
     model.is_parallelizable = True
     model.model_parallel = True
 
-if lora_config:
-    #lora_config = LoraConfig(**lora_config)
-    # model = get_peft_model(model, lora_config)
-    model = load_adapter(model, lora_config=lora_config)
+
+model = load_adapter(model, lora_config=lora_config)
 
 trainer_class = Trainer ##if not omit_base_model_save else TrainerNoBaseSave
 print("Trainer class:", trainer_class)

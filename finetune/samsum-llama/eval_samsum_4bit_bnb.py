@@ -51,8 +51,6 @@ local_rank = 0
 set_random_seed(seed)
 logging.set_verbosity_info()
 
-# with open(config_file, "r") as r:
-#     config = json.load(r)
 
 os.environ["WANDB_DISABLED"] = "true"
 

@@ -59,8 +59,6 @@ local_rank = 0
 set_random_seed(seed)
 logging.set_verbosity_info()
 
-# with open(config_file, "r") as r:
-#     config = json.load(r)
 
 device_map = "auto"
 world_size = int(os.environ.get("WORLD_SIZE", 1))
