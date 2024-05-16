@@ -39,8 +39,8 @@ from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR
 from peft import get_peft_model, LoraConfig, prepare_model_for_int8_training
 from datasets import load_dataset
 
-from utils import *
-from data import *
+from utils import set_random_seed, fix_model, fix_tokenizer
+from data import InstructDataset
 
 import evaluate
 import numpy as np

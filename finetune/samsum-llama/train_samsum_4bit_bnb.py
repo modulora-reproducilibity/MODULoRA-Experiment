@@ -35,16 +35,12 @@ from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR
 from peft import get_peft_model, LoraConfig, prepare_model_for_int8_training
 from datasets import load_dataset
 
-from utils import *
-from data import *
-
-
+from utils import fix_model, fix_tokenizer, set_random_seed
+from data import InstructDataset
 
 
 os.environ["WANDB_DISABLED"] = "true"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
-
-
 
 
 class SavePeftModelCallback(TrainerCallback):

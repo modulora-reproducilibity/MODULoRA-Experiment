@@ -35,12 +35,9 @@ from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR
 from peft import get_peft_model, LoraConfig, prepare_model_for_int8_training
 from datasets import load_dataset
 
-# from src.dataset import InstructDataset, ChatDataset
-# from src.util.dl import set_random_seed, fix_tokenizer, fix_model
-# from src.util.io import read_jsonl
 
-from utils import *
-from data import *
+from utils import set_random_seed, fix_tokenizer, fix_model
+from data import InstructDataset
 
 from llmtune.executor import load_llm, load_adapter
 from llmtune.engine.lora.peft import quant_peft
