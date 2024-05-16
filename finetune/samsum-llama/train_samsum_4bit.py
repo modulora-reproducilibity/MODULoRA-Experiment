@@ -30,7 +30,7 @@ import bitsandbytes as bnb
 from tqdm import tqdm
 import transformers
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, AutoModelForCausalLM, DataCollatorForTokenClassification, DataCollatorForSeq2Seq
-from transformers import Trainer, TrainingArguments, logging, TrainerCallback, TrainerState, TrainerControl, BitsAndBytesConfig
+from transformers import Trainer, TrainingArguments, logging, TrainerState, TrainerControl, BitsAndBytesConfig
 from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR
 from peft import get_peft_model, LoraConfig, prepare_model_for_int8_training
 from datasets import load_dataset
@@ -47,21 +47,6 @@ from llmtune.engine.lora.peft import quant_peft
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 
-class SavePeftModelCallback(TrainerCallback):
-    def on_save(
-        self,
-        args: TrainingArguments,
-        state: TrainerState,
-        control: TrainerControl,
-        **kwargs,
-    ):
-        checkpoint_folder = os.path.join(
-            args.output_dir, f"{PREFIX_CHECKPOINT_DIR}-{state.global_step}"
-        )
-
-        peft_model_path = os.path.join(checkpoint_folder, "adapter_model")
-        kwargs["model"].save_pretrained(peft_model_path)
-        return control
 
 checkpoint = None
 seed = args.seed
@@ -147,9 +132,6 @@ lora_config = LoraConfig(
     r=8, lora_alpha=32, target_modules=target_modules, lora_dropout=0.1, bias="none", task_type="CAUSAL_LM"
 )
 
-callbacks = [SavePeftModelCallback] if lora_config else []
-##no need to use callbacks
-callbacks = []
 
 training_args = trainer_config
 
@@ -259,7 +241,6 @@ trainer = trainer_class(
     args=training_args,
     train_dataset=train_dataset,
     eval_dataset=val_dataset,
-    callbacks=callbacks,
     data_collator=data_collator,
     preprocess_logits_for_metrics = preprocess_logits_for_metrics,
 )

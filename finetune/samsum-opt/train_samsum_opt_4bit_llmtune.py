@@ -22,7 +22,7 @@ import torch
 import transformers
 from transformers import AutoTokenizer
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, AutoModelForCausalLM, DataCollatorForTokenClassification, DataCollatorForSeq2Seq
-from transformers import Trainer, TrainingArguments, logging, TrainerCallback, TrainerState, TrainerControl, BitsAndBytesConfig
+from transformers import Trainer, TrainingArguments, logging, TrainerState, TrainerControl, BitsAndBytesConfig
 from llmtune.llms.autollm import AutoLLMForCausalLM
 from llmtune.engine.lora.config import FinetuneConfig
 from llmtune.engine.lora.peft import quant_peft
