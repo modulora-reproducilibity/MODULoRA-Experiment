@@ -6,11 +6,6 @@ from llmtune.engine.inference.autograd import (
     Autograd2bit, Autograd4bit, Autograd3bit
 )
 
-try:
-    import quant_cuda
-except:
-    print('CUDA extension not installed. Inference will not work.')
-
 # Assumes layer is perfectly divisible into 256 * 256 blocks
 class QuantLinear(nn.Module): 
     def __init__(

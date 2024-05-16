@@ -1,9 +1,7 @@
 import torch
 import numpy as np
-try:
-    import quant_cuda
-except:
-    print('CUDA extension not installed. Inference will not work.')
+
+import quant_cuda
 
 # Global Buffer
 buffer_mat_dic = {}

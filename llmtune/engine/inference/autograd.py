@@ -5,6 +5,8 @@ import torch.nn as nn
 from . import matmult as mm
 from torch.cuda.amp import custom_bwd, custom_fwd
 
+import quant_cuda
+
 class Autograd4bit(torch.autograd.Function):
     @staticmethod
     @custom_fwd(cast_inputs=torch.float16)
