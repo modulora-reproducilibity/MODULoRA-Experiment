@@ -125,12 +125,10 @@ model_name = "huggyllama/llama-13b"
 
 tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast=False)
 tokenizer = fix_tokenizer(tokenizer)
-# tokenizer.save_pretrained(output_dir)
 
 dataset = load_dataset('samsum')
 train_records = dataset['train']
 val_records = dataset['test']
-#random.shuffle(train_records)
 print("train_record[0]: ",train_records[0])
 
 ## Config for llama 65-b

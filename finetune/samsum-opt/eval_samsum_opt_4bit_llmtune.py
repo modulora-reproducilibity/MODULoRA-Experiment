@@ -125,39 +125,6 @@ for sample in tqdm(dataset['test']['dialogue']):
     predictions.append(p)
 
 # compute metric
-
-
-file_name = args.file_name
-# with open(file_name, 'w') as f:
-#     for item in predictions:
-#         # write each item on a new line
-#         f.write("%s\n" % item)
-#     f.write(f'Seed: {seed}')
-
-
-# def process_file(filename):
-#     output_list = []
-#     delete_lines = False
-#     with open(filename, 'r') as file:
-#         for line in file:
-#             stripped_line = line.strip()
-#             if stripped_line.startswith("### Summarize this:"):
-#                 delete_lines = True
-#                 continue
-#             elif stripped_line.startswith("### Output: "):
-#                 output = stripped_line[len("### Output: "):]
-#                 output_list.append(output)
-#                 delete_lines = False
-#                 continue
-
-#             if not delete_lines:
-#                 output_list.append(stripped_line)
-
-#     return output_list
-
-# predictions = process_file(file_name)
-# predictions.pop()
-
 rogue = metric.compute(predictions=predictions, references=dataset['test']['summary'], use_stemmer=True)
 
 # print results
@@ -166,7 +133,7 @@ print(f"rouge2: {rogue['rouge2']* 100:2f}%")
 print(f"rougeL: {rogue['rougeL']* 100:2f}%")
 print(f"rougeLsum: {rogue['rougeLsum']* 100:2f}%")
 
-with open(file_name, 'w') as f:
+with open(args.file_name, 'w') as f:
     for item in predictions:
         # write each item on a new line
         f.write("%s\n" % item)
