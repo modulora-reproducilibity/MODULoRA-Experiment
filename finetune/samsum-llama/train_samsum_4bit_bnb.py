@@ -66,11 +66,6 @@ if ddp:
     gradient_accumulation_steps = gradient_accumulation_steps // world_size
 
 
-#deepspeed_config = config.get("deepspeed")
-
-
-
-
 ### Training Configuration
 #trainer_config = config["trainer"]
 
